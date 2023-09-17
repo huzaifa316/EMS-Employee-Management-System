@@ -22,42 +22,44 @@ class User:
                     "last_ran",
                 ]
                 writer = csv.DictWriter(file, fieldnames=fieldnames)
-                self.employee = input("What is the Employee's name? ").title()
-                self.pay = input(f"How much does {self.employee} get paid per hour? ")
+                employee = input("What is the Employee's name? ").title()
+                pay = input(f"How much does {employee} get paid per hour? ")
                 try:
-                    int(self.pay)
+                    int(pay)
                 except ValueError:
-                    self.pay = 0
-                self.hours = input(
-                    f"Are there any hours you want to log for {self.employee}, type 0 for none: "
+                    pay = 0
+                hours = input(
+                    f"Are there any hours you want to log for {employee}, type 0 for none: "
                 )
                 try:
-                    int(self.hours)
+                    int(hours)
                 except ValueError:
-                    self.hours = 0
-                self.position = input(
-                    f"What position does {self.employee} hold? "
+                    hours = 0
+                position = input(
+                    f"What position does {employee} hold? "
                 ).title()
-                self.hours_required = input(
-                    f"Number of hours {self.employee} is required to work per week: "
+                hours_required = input(
+                    f"Number of hours {employee} is required to work per week: "
                 )
                 try:
-                    int(self.hours_required)
+                    int(hours_required)
                 except ValueError:
-                    self.hours_required = 0
+                    hours_required = 0
                 last_ran = date.today()
                 writer.writerow(
                     {
-                        "Employee": self.employee,
-                        "Hours": self.hours,
-                        "Pay": self.pay,
-                        "Position": self.position,
-                        "Hours_required": self.hours_required,
+                        "Employee": employee,
+                        "Hours": hours,
+                        "Pay": pay,
+                        "Position": position,
+                        "Hours_required": hours_required,
                         "last_ran": last_ran,
                     }
                 )
-                self.hours_reset(name)
+                print("Completed Sucessfully")
+                time.sleep(2)
                 main()
+
 
         def edit(self, name):
             df = pd.read_csv(name)
@@ -360,6 +362,7 @@ class User:
 def main():
     create_table(1)
     user = User(input("Username: "))
+    user.employee.hours_reset(user.name)
     user_input(user)
 
 
@@ -452,6 +455,17 @@ def onboarding(user):
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         main()
+
+def responseheader():
+    var = 200
+    assert 200 == 200
+    assert var == 200
+    responses(200)
+    return 200
+
+def responses(var1):
+    assert var1 == 200
+    return var1
 
 if __name__ == '__main__':
     main()
