@@ -27,14 +27,16 @@ class User:
                 try:
                     int(pay)
                 except ValueError:
-                    pay = 0
+                    print("Sorry, I didnt quite catch that!, Please try again")
+                    self.create(name)
                 hours = input(
                     f"Are there any hours you want to log for {employee}, type 0 for none: "
                 )
                 try:
                     int(hours)
                 except ValueError:
-                    hours = 0
+                    print("Sorry, I didnt quite catch that!, Please try again")
+                    self.create(name)
                 position = input(
                     f"What position does {employee} hold? "
                 ).title()
@@ -44,7 +46,8 @@ class User:
                 try:
                     int(hours_required)
                 except ValueError:
-                    hours_required = 0
+                    print("Sorry, I didnt quite catch that!, Please try again")
+                    self.create(name)
                 last_ran = date.today()
                 writer.writerow(
                     {
@@ -239,7 +242,7 @@ class User:
                     l = int(df.iloc[i]["Pay"]) * int(df.iloc[i]["Hours_required"])
                     lname = str(df.iloc[i]["Employee"])
             create_table(4)
-            val = input("Please select a value")
+            val = input("Please select a value: ")
             if val == "l":
                 print(f"{lname} gets paid the lowest at £{l} per week")
             elif val == "h":
