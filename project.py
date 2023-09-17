@@ -304,12 +304,45 @@ class User:
             print("Value Updated Sucessfully")
             time.sleep(1)
             print(f"{employee} now works for £{df.iloc[digit]['Pay']} per hour")
+            time.sleep(0.5)
+            main()
 
         def list(self, name):
             df = pd.read_csv(name)
             print(tabulate(df, headers = 'keys', tablefmt = 'psql'))
             time.sleep(3)
             main()
+        def delete(self, name):
+            df = pd.read_csv(name)
+            employee = input(
+                "Please enter the employee who you remove from your systems: "
+            ).title()
+
+            while employee not in df.values:
+                y = input(
+                    "That employee does not exist would you like to create one?, type y for yes: "
+                ).lower()
+                while y != "y" and y != "n":
+                    print("Please try again")
+                    y = input(
+                        "That employee does not exist would you like to create one?, type y for yes: "
+                    ).lower()
+                if y == "y":
+                    self.create(str(name))
+                else:
+                    employee = input(
+                        "Please enter the employee you want to remove from your records: "
+                    ).title()
+            row_num = df[df["Employee"] == employee]
+            row_num = row_num.index.tolist()
+            for digit in row_num:
+                digit = int(digit)
+            df.drop([digit], axis=0, inplace=True)
+            df.to_csv(name, index=False)
+            print("Value Updated Sucessfully")
+            time.sleep(1)
+            main()
+
 
         def hours_reset(_, name):
             with open(name) as file:
@@ -357,6 +390,8 @@ class User:
             self.employee.pay_raise(str(self.name))
         elif user_input == "o":
             self.employee.list(str(self.name))
+        elif user_input == "d":
+            self.employee.delete(str(self.name))
 
 
 def main():
@@ -379,6 +414,7 @@ def user_input(user):
         and user_input != "h"
         and user_input != "p"
         and user_input != "o"
+        and user_input != "d"
     ):
         user_input = input("Please choose an option: ").lower()
 
@@ -409,12 +445,13 @@ def create_table(n, employee=""):
         table.add_row(
             [
                 "m",
-                "Calculates highest or lowest paid employee based on hours required and pay per hour",
+                "Calculates highest or lowest paid employee based on required hours",
             ]
         )
         table.add_row(["h", "prints best performing employee"])
         table.add_row(["p", "gives a pay raise in precent to an employee"])
         table.add_row(["o", "lists all employees and their values"])
+        table.add_row(["d", "deletes an existing employee record"])
         table.add_row(["b", "exits"])
     if n == 3:
         table.add_row(["h", f"Edits the number of hours {employee} has worked"])
