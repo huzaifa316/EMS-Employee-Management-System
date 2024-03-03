@@ -79,6 +79,4 @@ Are you ready to add your touch of excellence to this project? Whether you're a 
 The Employee Management System (EMS) by Huzaifa is your ticket to efficient employee management and data analysis. Enjoy the journey, have fun, and make your workplace a well-organized and productive environment!
 
 Let's start managing your team with style and efficiency! 🚀
-```
 
-Feel free to use this updated README file for your EMS project. You can copy and paste it into your project's documentation.
